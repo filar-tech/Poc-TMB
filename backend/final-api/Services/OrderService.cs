@@ -8,6 +8,9 @@ public class OrderService
 
     public async Task<Order> Create(Order order)
     {
+        order.Id = Guid.NewGuid();
+        order.Status = "Pendente";
+
         orders.Add(order);
 
         _ = ProcessOrder(order);
