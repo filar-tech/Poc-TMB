@@ -34,3 +34,4 @@ C:\Users\Filipe\Desktop\Projeto Poc TMB\backend\final-api\obj\Debug\net10.0\ref\
 C:\Users\Filipe\Desktop\Projeto Poc TMB\backend\final-api\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Filipe\Desktop\Projeto Poc TMB\backend\final-api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Filipe\Desktop\Projeto Poc TMB\backend\final-api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Filipe\Desktop\Projeto Poc TMB\backend\final-api\obj\Debug\net10.0\final-api.sourcelink.json
