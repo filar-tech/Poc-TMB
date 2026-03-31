@@ -16,36 +16,57 @@ function App() {
   const [valor, setValor] = useState("");
 
   async function loadOrders() {
-    const response = await api.get("/orders");
-    setOrders(response.data);
+    try {
+      const response = await api.get("/orders");
+      console.log("GET OK:", response.data);
+      setOrders(response.data);
+    } catch (error) {
+      console.error("ERRO GET:", error);
+    }
   }
 
   async function createOrder() {
+    console.log("🔥 BOTÃO CLICADO");
+
     if (!cliente || !produto || !valor) {
       alert("Preencha tudo");
       return;
     }
 
-    await api.post("/orders", {
-      cliente,
-      produto,
-      valor: Number(valor),
-    });
+    try {
+      const response = await api.post("/orders", {
+        cliente,
+        produto,
+        valor: Number(valor),
+      });
 
-    setCliente("");
-    setProduto("");
-    setValor("");
+      console.log("POST OK:", response.data);
 
-    loadOrders();
+      setCliente("");
+      setProduto("");
+      setValor("");
+
+      await loadOrders();
+    } catch (error) {
+      console.error("ERRO POST:", error);
+    }
   }
 
   useEffect(() => {
+    console.log("App carregou");
+
     loadOrders();
+
+    const interval = setInterval(() => {
+      loadOrders();
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div style={{ maxWidth: 500, margin: "0 auto", padding: 20 }}>
-      <h1>Pedidos</h1>
+      <h1>Sistema de Pedidos</h1>
 
       <input
         placeholder="Cliente"
@@ -62,22 +83,27 @@ function App() {
       <br /><br />
 
       <input
+        type="number"
         placeholder="Valor"
         value={valor}
         onChange={(e) => setValor(e.target.value)}
       />
       <br /><br />
 
-      <button onClick={createOrder}>Criar Pedido</button>
+      <button onClick={createOrder}>
+        Criar Pedido
+      </button>
 
       <hr />
 
+      {orders.length === 0 && <p>Nenhum pedido ainda</p>}
+
       {orders.map((order) => (
         <div key={order.id}>
-          <p>Cliente: {order.cliente}</p>
-          <p>Produto: {order.produto}</p>
-          <p>Valor: {order.valor}</p>
-          <p>Status: {order.status}</p>
+          <p><b>Cliente:</b> {order.cliente}</p>
+          <p><b>Produto:</b> {order.produto}</p>
+          <p><b>Valor:</b> {order.valor}</p>
+          <p><b>Status:</b> {order.status}</p>
           <hr />
         </div>
       ))}
